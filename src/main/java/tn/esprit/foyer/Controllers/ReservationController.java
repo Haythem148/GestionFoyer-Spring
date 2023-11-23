@@ -28,4 +28,8 @@ public class ReservationController {
     public Reservation retrieveReservation(@PathVariable Long idReservation) {
         return iReservationService.retrieveReservation(idReservation);
     }
+    @PostMapping("{idChambre}/{cinEtudiant}")
+    public Reservation ajouterReservation(@PathVariable long idChambre,@PathVariable long cinEtudiant){
+        return  iReservationService.ajouterReservation(idChambre, cinEtudiant);
+    }
 }

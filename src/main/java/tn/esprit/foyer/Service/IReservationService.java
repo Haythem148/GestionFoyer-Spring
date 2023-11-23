@@ -8,4 +8,6 @@ public interface IReservationService {
     List<Reservation> retrieveAllReservation();
     Reservation updateReservation (Reservation res);
     Reservation retrieveReservation (Long idReservation);
+    public Reservation ajouterReservation(long idChambre, long cinEtudiant);
+
 }

@@ -3,6 +3,7 @@ package tn.esprit.foyer.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.foyer.Entity.Chambre;
+import tn.esprit.foyer.Entity.TypeChambre;
 import tn.esprit.foyer.Service.IChambreService;
 
 import java.util.List;
@@ -32,5 +33,13 @@ public class ChambreController {
     @GetMapping("{idChambre}")
     public Chambre retrieveChambre(@PathVariable long idChambre) {
         return iChambreService.retrieveChambre(idChambre);
+    }
+    @GetMapping("/getbyUniversite/{nomUniversite}")
+    public List<Chambre> getChambresParNomUniversite(String nomUniversite){
+        return iChambreService.getChambresParNomUniversite(nomUniversite);
+    }
+    @GetMapping("/getbyidBloc/{idBloc}/{typeC}")
+    public List<Chambre> getChambresParBlocEtType(@PathVariable long idBloc,@PathVariable TypeChambre typeC){
+        return iChambreService.getChambresParBlocEtType(idBloc,typeC);
     }
 }

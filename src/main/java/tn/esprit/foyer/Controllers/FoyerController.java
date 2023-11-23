@@ -34,4 +34,13 @@ Foyer retrieveFoyer(@PathVariable long idFoyer){
 boolean removeFoyer(long idFoyer){
     return iFoyerService.removeFoyer(idFoyer);
 }
+@PostMapping("{idUniversite}")
+Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer,@PathVariable long idUniversite){
+    return iFoyerService.ajouterFoyerEtAffecterAUniversite(foyer,idUniversite);
+
+}
+@PutMapping("{idFoyer}/{idBloc}")
+    public Foyer affecterBlocsAFoyer(@PathVariable long idBloc,@PathVariable long idFoyer){
+    return iFoyerService.affecterBlocsAFoyer(idBloc,idFoyer);
+}
 }

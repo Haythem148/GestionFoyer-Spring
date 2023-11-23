@@ -1,5 +1,6 @@
 package tn.esprit.foyer.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,9 +20,11 @@ public class Foyer {
     Long idFoyer;
     String nomFoyer;
     Long capaciteFoyer;
-    @OneToOne
+    @OneToOne(mappedBy = "foyer")
+    @JsonIgnore
     Universite universite;
-@OneToMany(mappedBy = "foyer")
+    @OneToMany(mappedBy = "foyer")
+
     Set<Bloc>blocs;
 
 
