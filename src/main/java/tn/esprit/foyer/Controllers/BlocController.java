@@ -1,6 +1,7 @@
 package tn.esprit.foyer.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.foyer.Entity.Bloc;
 import tn.esprit.foyer.Service.IBlocService;
@@ -11,7 +12,6 @@ import java.util.List;
 @RequestMapping("blocs")
 @RequiredArgsConstructor
 public class BlocController {
-
     private final IBlocService iBlocService;
 
     @GetMapping

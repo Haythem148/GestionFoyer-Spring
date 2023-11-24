@@ -36,7 +36,7 @@ public class EtudiantController {
     }
 
     @PostMapping
-    public List<Etudiant> addEtudiants(@RequestBody List<Etudiant> etudiants) {
-        return etudiantService.addEtudiants(etudiants);
+    public Etudiant addEtudiants(Etudiant etudiant) {
+        return etudiantService.addEtudiants(etudiant);
     }
 }

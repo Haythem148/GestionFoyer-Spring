@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.foyer.Entity.Etudiant;
 import tn.esprit.foyer.Repository.EtudiantRep;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,22 +13,15 @@ public class IEtudiantServiceImp implements IEtudiantService {
 
     private final EtudiantRep etudiantRep;
 
-
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
         return (List<Etudiant>) etudiantRep.findAll();
     }
 
     @Override
-    public List<Etudiant> addEtudiants(List<Etudiant> etudiants) {
-        List<Etudiant> savedEtudiants = new ArrayList<>();
-        for (Etudiant etudiant : etudiants) {
-            savedEtudiants.add(etudiantRep.save(etudiant));
-        }
-        return savedEtudiants;
+    public Etudiant addEtudiants(Etudiant etudiant) {
+        return etudiantRep.save(etudiant);
     }
-
-
 
     @Override
     public Etudiant updateEtudiant(Etudiant e) {
@@ -38,7 +30,8 @@ public class IEtudiantServiceImp implements IEtudiantService {
 
     @Override
     public Etudiant retrieveEtudiant(long idEtudiant) {
-        return etudiantRep.findById(idEtudiant).orElse(null);
+        return etudiantRep.findById(idEtudiant)
+                .orElseThrow(() -> new IllegalArgumentException("No etudiant found with this id: " + idEtudiant));
     }
 
     @Override

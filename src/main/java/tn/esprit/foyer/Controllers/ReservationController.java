@@ -25,7 +25,7 @@ public class ReservationController {
     }
 
     @GetMapping("{idReservation}")
-    public Reservation retrieveReservation(@PathVariable Long idReservation) {
+    public Reservation retrieveReservation(@PathVariable String idReservation) {
         return iReservationService.retrieveReservation(idReservation);
     }
     @PostMapping("{idChambre}/{cinEtudiant}")

@@ -13,4 +13,5 @@ public interface IBlocService {
     public Bloc affecterChambresABloc(List<Long> numChambre, long
             idBloc) ;
 
+
 }

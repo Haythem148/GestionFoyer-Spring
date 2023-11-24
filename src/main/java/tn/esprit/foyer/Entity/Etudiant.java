@@ -19,7 +19,7 @@ public class Etudiant {
     Long idEtudiant;
     String nomEtudiant;
     String prenomEtudiant;
-    Long cin;
+    Long Cin;
     String ecole;
     Date dateNaissance;
  @ManyToMany

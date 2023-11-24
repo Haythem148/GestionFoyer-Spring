@@ -31,7 +31,8 @@ public class IChambreServiceImp implements IChambreService {
 
     @Override
     public Chambre retrieveChambre(long idChambre) {
-        return chambreRep.findById(idChambre).orElse(null);
+        return chambreRep.findById(idChambre)
+                .orElseThrow(() -> new IllegalArgumentException("No chambre found with this id: " + idChambre));
     }
 
     @Override
@@ -41,6 +42,6 @@ public class IChambreServiceImp implements IChambreService {
 
     @Override
     public List<Chambre> getChambresParBlocEtType(long idBloc, TypeChambre typeC) {
-        return chambreRep.findChambreByBloc_IdBlocAndTypeChambre(idBloc,typeC);
+        return chambreRep.findChambreByBloc_IdBlocAndTypeChambre(idBloc, typeC);
     }
 }

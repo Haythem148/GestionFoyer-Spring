@@ -5,11 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.foyer.Entity.Bloc;
 import tn.esprit.foyer.Entity.Chambre;
-import tn.esprit.foyer.Entity.Universite;
 import tn.esprit.foyer.Repository.BlocRep;
 import tn.esprit.foyer.Repository.ChambreRep;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +19,10 @@ public class IBlocServiceImp implements IBlocService {
     private final BlocRep blocRep;
     private final ChambreRep chambreRep;
 
-
     @Override
     public List<Bloc> retrieveBlocs() {
         return (List<Bloc>) blocRep.findAll();
     }
-
 
     @Override
     public Bloc updateBloc(Bloc bloc) {
@@ -37,7 +36,8 @@ public class IBlocServiceImp implements IBlocService {
 
     @Override
     public Bloc retrieveBloc(long idBloc) {
-        return blocRep.findById(idBloc).orElse(null);
+        return blocRep.findById(idBloc)
+                .orElseThrow(() -> new IllegalArgumentException("No bloc found with this id: " + idBloc));
     }
 
     @Override
@@ -46,19 +46,22 @@ public class IBlocServiceImp implements IBlocService {
         return !blocRep.existsById(idBloc);
     }
 
-
     @Override
     @Transactional
     public Bloc affecterChambresABloc(List<Long> numChambre, long idBloc) {
-        Bloc bloc = blocRep.findById(idBloc).orElse(null);
+        Bloc bloc = blocRep.findById(idBloc)
+                .orElseThrow(() -> new IllegalArgumentException("No bloc found with this id: " + idBloc));
         Set<Chambre> chambres = new HashSet<>();
-        for(Long id : numChambre) {
-            chambres.add(chambreRep.findById(id).orElse(null));
-            chambreRep.findById(id).orElse(null).setBloc(bloc);
-            chambreRep.saveAll(chambres);
+        for (Long id : numChambre) {
+            Chambre chambre = chambreRep.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("No chambre found with this id: " + id));
+            chambres.add(chambre);
+            chambre.setBloc(bloc);
         }
         bloc.setChambres(chambres);
+        chambreRep.saveAll(chambres);
         return bloc;
     }
-}
 
+
+}

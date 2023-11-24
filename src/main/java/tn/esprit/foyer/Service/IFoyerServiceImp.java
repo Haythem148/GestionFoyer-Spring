@@ -40,9 +40,9 @@ private  final BlocRep blocRep;
 
     @Override
     public Foyer retrieveFoyer(long idFoyer) {
-        return foyerRep.findById(idFoyer).orElse(null);
+        return foyerRep.findById(idFoyer)
+                .orElseThrow(() -> new IllegalArgumentException("No foyer found with this id: " + idFoyer));
     }
-
     @Override
     public boolean removeFoyer(long idFoyer) {
         foyerRep.deleteById(idFoyer);
@@ -50,19 +50,21 @@ private  final BlocRep blocRep;
     }
 
     @Override
-
     public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite) {
-        Universite universite = universiteRep.findById(idUniversite).orElse(null);
+        Universite universite = universiteRep.findById(idUniversite)
+                .orElseThrow(() -> new IllegalArgumentException("No universite found with this id: " + idUniversite));
         foyer.setUniversite(universite);
         universite.setFoyer(foyer);
-       return  foyerRep.save(foyer);
+        return foyerRep.save(foyer);
     }
 
     @Override
     public Foyer affecterBlocsAFoyer(long idBloc, long idFoyer) {
-        Bloc bloc = blocRep.findById(idBloc).orElse(null);
-        Foyer foyer = foyerRep.findById(idFoyer).orElse(null);
-        Set<Bloc> blocs=new HashSet<>();
+        Bloc bloc = blocRep.findById(idBloc)
+                .orElseThrow(() -> new IllegalArgumentException("No bloc found with this id: " + idBloc));
+        Foyer foyer = foyerRep.findById(idFoyer)
+                .orElseThrow(() -> new IllegalArgumentException("No foyer found with this id: " + idFoyer));
+        Set<Bloc> blocs = new HashSet<>();
         blocs.add(bloc);
         foyer.setBlocs(blocs);
         bloc.setFoyer(foyer);
